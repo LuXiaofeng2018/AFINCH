@@ -20,7 +20,7 @@ AFINCH (Analysis of Flow in Networks of Channels)
 
 ## Changes to AFINCH: version: AFinchGUI3b.m 
   
-# summary:
+### summary:
 * write out design matrix and regression coefficients to text files so that climate change 
          scenarios can be run efficiently by replacing the climate variables in the design 
          matrix with desired values and multiplying the design matrix and the vector
@@ -30,7 +30,7 @@ AFINCH (Analysis of Flow in Networks of Channels)
          coefficients are written for each month. Only period-of-analysis, ordinary least-squares, 
          values are written. 
          
-# changes:
+### changes:
 * AFinchGUI3b.m, added code from lines 593 - 627 to fill a design matrix
          including a gridcode column and write it to files by month. The
          files are DesMat_mon.csv, where mon is an abbreviated month name. Also write
