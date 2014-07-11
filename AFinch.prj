@@ -1,0 +1,143 @@
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration build-checksum="2576338075" file="C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch.prj" location="C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a" name="AFinch" preferred-package-location="C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="MATLAB Compiler for Standalone Applications">
+    <param.appname>AFinch</param.appname>
+    <param.icon>${PROJECT_ROOT}\AFinch_resources\icon.ico</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}\AFinch_resources\icon_48.png</file>
+      <file>${PROJECT_ROOT}\AFinch_resources\icon_32.png</file>
+      <file>${PROJECT_ROOT}\AFinch_resources\icon_24.png</file>
+      <file>${PROJECT_ROOT}\AFinch_resources\icon_16.png</file>
+    </param.icons>
+    <param.version>3.0</param.version>
+    <param.authnamewatermark>Holtschlag,Luukkonen,Reeves</param.authnamewatermark>
+    <param.email>dholtschlag@usgs.gov</param.email>
+    <param.company>USGS</param.company>
+    <param.summary>AFINCH: Analysis of Flows In Netorks of CHannels</param.summary>
+    <param.description>AFINCH is an application for estimating a time series of monthly water yields and flows in a study area defined by one or more 8-digit hydrologic units.  Stream and catchment topolgy is defined by NHDPlus.</param.description>
+    <param.screenshot>${PROJECT_ROOT}\splash.png</param.screenshot>
+    <param.guid />
+    <param.installpath.string>\USGS\AFinch\</param.installpath.string>
+    <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
+    <param.logo />
+    <param.install.notes />
+    <param.intermediate>${PROJECT_ROOT}\AFinch\for_testing</param.intermediate>
+    <param.output>${PROJECT_ROOT}\AFinch\for_redistribution</param.output>
+    <param.user.defined.mcr.options />
+    <param.embed.ctf>true</param.embed.ctf>
+    <param.server.ctf>${PROJECT_ROOT}\AFinch\for_testing\.ctf</param.server.ctf>
+    <param.server.readme>${PROJECT_ROOT}\AFinch\for_testing\readme.txt</param.server.readme>
+    <param.target.type>subtarget.standalone</param.target.type>
+    <param.support.packages />
+    <param.web.mcr>true</param.web.mcr>
+    <param.package.mcr>true</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>AFinch3aInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>AFinch3aInstaller_mcr</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>true</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <unset>
+      <param.guid />
+      <param.installpath.string />
+      <param.installpath.combo />
+      <param.logo />
+      <param.install.notes />
+      <param.intermediate />
+      <param.output />
+      <param.user.defined.mcr.options />
+      <param.embed.ctf />
+      <param.server.ctf />
+      <param.server.readme />
+      <param.target.type />
+      <param.support.packages />
+      <param.web.mcr />
+      <param.no.mcr />
+      <param.no.mcr.name />
+      <param.windows.command.prompt />
+      <param.create.log />
+      <param.log.file />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\AFinch.m</file>
+    </fileset.main>
+    <fileset.resources>
+      <file>${PROJECT_ROOT}\AFAreaWtXVar.m</file>
+      <file>${PROJECT_ROOT}\AFAugAFstructQY.m</file>
+      <file>${PROJECT_ROOT}\AFDesignMatrixDAreasGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFDesignMatrixDAreasGUI.m</file>
+      <file>${PROJECT_ROOT}\AFdistWaterYieldGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFdistWaterYieldGUI.m</file>
+      <file>${PROJECT_ROOT}\AFevalRegParmEstiGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFevalRegParmEstiGUI.m</file>
+      <file>${PROJECT_ROOT}\AFGenLag1Prec.m</file>
+      <file>${PROJECT_ROOT}\AFGenStrucData.m</file>
+      <file>${PROJECT_ROOT}\AFinchGUI3a.fig</file>
+      <file>${PROJECT_ROOT}\AFinchGUI3a.m</file>
+      <file>${PROJECT_ROOT}\AFKenSen.m</file>
+      <file>${PROJECT_ROOT}\AFnlcdGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFnlcdGUI.m</file>
+      <file>${PROJECT_ROOT}\AFplotAreasFlowsGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFplotAreasFlowsGUI.m</file>
+      <file>${PROJECT_ROOT}\AFplotDurationGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFplotDurationGUI.m</file>
+      <file>${PROJECT_ROOT}\AFplotFlowSeriesGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFplotFlowSeriesGUI.m</file>
+      <file>${PROJECT_ROOT}\AFplotMeaEstFlowsGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFplotMeaEstFlowsGUI.m</file>
+      <file>${PROJECT_ROOT}\AFprismGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFprismGUI.m</file>
+      <file>${PROJECT_ROOT}\AFReadInFlowWY.m</file>
+      <file>${PROJECT_ROOT}\AFReadInWUseWY.m</file>
+      <file>${PROJECT_ROOT}\AFReadNLCD.m</file>
+      <file>${PROJECT_ROOT}\AFReadPrismPrec.m</file>
+      <file>${PROJECT_ROOT}\AFReadPrismTemp.m</file>
+      <file>${PROJECT_ROOT}\AFRegressWYr.m</file>
+      <file>${PROJECT_ROOT}\AFSelectHUC.m</file>
+      <file>${PROJECT_ROOT}\AFSetupData.m</file>
+      <file>${PROJECT_ROOT}\AFStaBasinGridComIDWY.m</file>
+      <file>${PROJECT_ROOT}\AFStepwiseRun.m</file>
+      <file>${PROJECT_ROOT}\AFStepwiseSetup.fig</file>
+      <file>${PROJECT_ROOT}\AFStepwiseSetup.m</file>
+      <file>${PROJECT_ROOT}\AFStudyArea.fig</file>
+      <file>${PROJECT_ROOT}\AFStudyArea.m</file>
+      <file>${PROJECT_ROOT}\AFWaterYieldGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFWaterYieldGUI.m</file>
+      <file>${PROJECT_ROOT}\AFxVarShapeGUI.fig</file>
+      <file>${PROJECT_ROOT}\AFxVarShapeGUI.m</file>
+    </fileset.resources>
+    <fileset.package>
+      <file>${PROJECT_ROOT}\legendBars.jpg</file>
+      <file>${PROJECT_ROOT}\legendParamPlot.jpg</file>
+      <file>${PROJECT_ROOT}\nlcd2006PB.jpg</file>
+      <file>${PROJECT_ROOT}\prismPB.jpg</file>
+      <file>${PROJECT_ROOT}\shapefile.jpg</file>
+      <file>${PROJECT_ROOT}\USGS_B&amp;WNM.bmp</file>
+    </fileset.package>
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}\AFinch\for_testing" name="splash.png" optional="false">C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\AFinch\for_testing" name="readme.txt" optional="true">C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\AFinch\for_testing" name="AFinch.exe" optional="false">C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_testing\AFinch.exe</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2014a</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>6.1</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>

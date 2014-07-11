@@ -1,0 +1,30 @@
+ant:
+<ant>
+  <mkdir dir="C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_redistribution" />
+  <mkdir dir="C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_testing" />
+</ant>
+mcc -C -o AFinch -W WinMain:AFinch -T link:exe -d C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_testing -v C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch.m 
+Compiler version: 5.1 (R2014a)
+Dependency analysis by REQUIREMENTS.
+[Warning: Adding path "C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a" to
+Compiler path instance.] 
+Parsing file "C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch.m"
+	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Program Files\MATLAB\R2014a\toolbox\compiler\deploy\deployprint.m"
+	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Program Files\MATLAB\R2014a\toolbox\compiler\deploy\printdlg.m"
+	(Referenced from: "Compiler Command Line").
+Deleting 4 temporary MEX authorization files.
+Removing: 'C:\Users\dholtsch\AppData\Local\Temp\1\mathworks_tmp_7008_20026_7008.auth'.
+Removing: 'C:\Users\dholtsch\AppData\Local\Temp\1\mathworks_tmp_7008_174_7008.auth'.
+Removing: 'C:\Users\dholtsch\AppData\Local\Temp\1\mathworks_tmp_7008_2363_7008.auth'.
+Removing: 'C:\Users\dholtsch\AppData\Local\Temp\1\mathworks_tmp_7008_205_7008.auth'.
+Generating file "C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_testing\readme.txt".
+Packaging...
+Adding custom icon C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch_resources\icon.ico to C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_testing\AFinch.exe.
+Attempting to embed the CTF archive into the application C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_testing\AFinch.exe.
+Finished embedding CTF archive. Deleting the external CTF archive.
+Creating the bundle...
+Web based installer created at C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_redistribution\AFinch3aInstaller_web.exe.
+Self contained installer created at C:\Home\Projects\AFINCH\Analysis\AFinch\MLCode\Ver3a\AFinch\for_redistribution\AFinch3aInstaller_mcr.exe.
+Packaging complete.
