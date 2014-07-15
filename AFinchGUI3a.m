@@ -513,7 +513,7 @@ hAFinchGUI = getappdata(0,'hAFinchGUI');
 Ny          = getappdata(hAFinchGUI,'Ny');
 ExpVarNo    = getappdata(hAFinchGUI,'ExpVarNo');
 xVar        = getappdata(hAFinchGUI,'xVar');
-DaysInMo    = getappdata(hAFinchGUI,'DaysInMo');
+% DaysInMo    = getappdata(hAFinchGUI,'DaysInMo');
 % StaHist     = getappdata(hAFinchGUI,'StaHist');
 AFstruct    = getappdata(hAFinchGUI,'AFstruct');
 RegEqnPoA   = getappdata(hAFinchGUI,'RegEqnPoA');
@@ -521,9 +521,10 @@ HSR         = getappdata(hAFinchGUI,'HSR');
 RegEqnWYr     = getappdata(hAFinchGUI,'RegEqnWYr');
 %%
 % xVarTableData = getappdata(hAFinchGUI,'xVarTableData'); 
-% WY1           = getappdata(hAFinchGUI,'WY1');
-wYearVec      = getappdata(hAFinchGUI,'wYearVec');
+WY1           = getappdata(hAFinchGUI,'WY1');
+% wYearVec      = getappdata(hAFinchGUI,'wYearVec');
 % MonthName     = getappdata(hAFinchGUI,'MonthName');
+MoName = getappdata(hAFinchGUI,'MoName');
 
 % 
 sxVar = struct([]); % NaN(size(xVar));
@@ -585,9 +586,45 @@ yieldCatchEst = NaN(Ny,length(uniGridcode),12);
 if strcmp(handles.RegSpan,'poaRB') && strcmp(handles.RegTech,'olsRB')
     fprintf(1, 'RegSpan = PoA and RegTech = OLS \n');
     for im = 1:12,
+        designMat      = NaN(length(uniGridcode),2+sum(RegEqnPoA(1,im).inmodel));
+        designMat(:,2) = ones(length(uniGridcode),1);
+        designMat(:,1) = uniGridcode;
+        ndxvar   =  find(RegEqnPoA(1,im).inmodel);
+        % build a designMat using the first water year for each month and
+        % write it out, also write out the B values of the regression 
+        % for each month
+        labelvector = {'gridcode','intercept'};
+        for ivar = 1:sum(RegEqnPoA(1,im).inmodel),
+            if ndims(sxVar(1,ndxvar(ivar)).value)==3
+                    % xVar varies monthly, annually, and spatially
+                    designMat(:,ivar+2) = sxVar(1,ndxvar(ivar)).value(1,:,im)';
+            else
+                    % xVar only varies spatially
+                    designMat(:,ivar+2) = sxVar(1,ndxvar(ivar)).value;
+            end
+            labelvector = [labelvector sxVar(1,ndxvar(ivar)).name];
+        end
+        % write design matrix to a file, also write b values
+       
+        abbrev = strrep(MoName(im),'.','');
+        fname =strcat('DesMat_',abbrev,'.csv');
+        fid = fopen(char(fname), 'wt');
+        fprintf(fid,'%s, ',labelvector{:});
+        fprintf(fid,'\n');
+        dlmwrite(char(fname),designMat, '-append');
+        fclose(fid);
+        fname = strcat('b_vec_',abbrev,'.csv');
+        fid = fopen(char(fname),'wt');
+        fprintf(fid,'%s, ',sxVar(1,:).name);
+        fprintf(fid,'\n');
+        fprintf(fid,'%d, ',RegEqnPoA(1,im).inmodel);
+        fprintf(fid,'\n');
+        fprintf(fid,'%f, ',RegEqnPoA(1,im).OLS.b);
+        fclose(fid);
+        %reset design matrix
+        clear designMat;
         designMat      = NaN(length(uniGridcode),1+sum(RegEqnPoA(1,im).inmodel));
         designMat(:,1) = ones(length(uniGridcode),1);
-        ndxvar   =  find(RegEqnPoA(1,im).inmodel);
         for iy  = 1:Ny,
             for ivar = 1:sum(RegEqnPoA(1,im).inmodel)
                 if ndims(sxVar(1,ndxvar(ivar)).value)==3
@@ -598,11 +635,12 @@ if strcmp(handles.RegSpan,'poaRB') && strcmp(handles.RegTech,'olsRB')
                     designMat(:,ivar+1) = sxVar(1,ndxvar(ivar)).value;
                 end
             end
+            WY = WY1 + iy -1;
             yieldCatchEst(iy,:,im) = designMat * ...
                 RegEqnPoA(1,im).OLS.b([1,ndxvar+1]);
             % Compute flows corresponding to yieldCatchEst
              flowCatchEst(iy,:,im) = (yieldCatchEst(iy,:,im)').^2 ...
-                 .* AreaSqMi * 5280^2 /(DaysInMo(im)*24*3600*12);
+                 .* AreaSqMi * 5280^2 /(AFdaysInMonth(WY,im)*24*3600*12);
         end
     end
     % Period of Analysis and Robust regression estimates   
@@ -622,10 +660,11 @@ elseif strcmp(handles.RegSpan,'poaRB') && strcmp(handles.RegTech,'robustRB')
                     designMat(:,ivar+1) = sxVar(1,ndxvar(ivar)).value;
                 end
             end
+            WY = WY1 + iy -1;
             yieldCatchEst(iy,:,im) = designMat * RegEqnPoA(1,im).robust.b;
             % Compute flows corresponding to yieldCatchEst
              flowCatchEst(iy,:,im) = (yieldCatchEst(iy,:,im)').^2 ...
-                 .* AreaSqMi * 5280^2 /(DaysInMo(im)*24*3600*12);
+                 .* AreaSqMi * 5280^2 /(AFdaysInMonth(WY,im)*24*3600*12);
         end
     end
     % Analysis of Annual Regression Estimates computed using OLS  
@@ -648,11 +687,12 @@ elseif strcmp(handles.RegSpan,'annualRB') && strcmp(handles.RegTech,'olsRB')
                         designMat(:,ivar+1) = sxVar(1,ndxvar(ivar)).value;
                     end
                 end
+                WY = WY1 + iy -1;
                 yieldCatchEst(iy,:,im) = designMat * ...
                     RegEqnWYr(iy,im).OLS.b;
                 % Compute flows corresponding to yieldCatchEst
                 flowCatchEst(iy,:,im)  = (yieldCatchEst(iy,:,im)').^2 ...
-                    .* AreaSqMi * 5280^2 /(DaysInMo(im)*24*3600*12);
+                    .* AreaSqMi * 5280^2 /(AFdaysInMonth(WY,im)*24*3600*12);
             end
         end
     end
@@ -676,11 +716,12 @@ elseif strcmp(handles.RegSpan,'annualRB') && strcmp(handles.RegTech,'robustRB')
                         designMat(:,ivar+1) = sxVar(1,ndxvar(ivar)).value;
                     end
                 end
+                WY = WY1 + iy -1;
                 yieldCatchEst(iy,:,im) = designMat * ...
                     RegEqnWYr(iy,im).Robust.b;
                 % Compute flows corresponding to yieldCatchEst
                 flowCatchEst(iy,:,im)  = (yieldCatchEst(iy,:,im)').^2 ...
-                    .* AreaSqMi * 5280^2 /(DaysInMo(im)*24*3600*12);
+                    .* AreaSqMi * 5280^2 /(AFdaysInMonth(WY,im)*24*3600*12);
             end
         end
     end
@@ -714,8 +755,9 @@ for iy=1:Ny,
                 AFstruct.(HSR)(iy,StaHist(iy).StaNdx(is)).flowBasinEstInc(im);
             flowCatchCon(iy,ib,im) =  ConAdjust(iy,is,im) .* ...
                 flowCatchEst(iy,ib,im);
+            WY = WY1 + iy -1;
             yieldCatchCon(iy,ib,im) = flowCatchCon(iy,ib,im)' ...
-                ./ (AreaSqMi_PrecTHS(ib) * 5280^2) * (DaysInMo(im)*24*3600*12);
+                ./ (AreaSqMi_PrecTHS(ib) * 5280^2) * (AFdaysInMonth(WY,im)*24*3600*12);
             StaHist(iy).QConIncWY(is,im) = sum(flowCatchCon(iy,ib,im));
         end
     end

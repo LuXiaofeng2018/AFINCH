@@ -18,8 +18,10 @@ fprintf(1,'    %s in Target Hydrologic Subregion (THS) \n',num2str(WY));
 fprintf(1,'--------------------------------------------------------------------\n');
 %
 % DaysInMo is annual variable that handles leap years
-DaysInMo = [31 30 31 31 eomday(WY,2) 31 30 31 30 31 31 30 337+eomday(WY,2)];
-setappdata(hAFinchGUI,'DaysInMo',DaysInMo);
+% this vector was replaced by a function AFdaysInMonth-- HWR July 7, 2014
+% copied below as necessary
+%DaysInMo = [31 30 31 31 eomday(WY,2) 31 30 31 30 31 31 30 337+eomday(WY,2)];
+%setappdata(hAFinchGUI,'DaysInMo',DaysInMo);
 %
 % Run scripts
 %% AFReadPrismPrec
@@ -93,6 +95,9 @@ setappdata(hAFinchGUI,'AFstruct',AFstruct);
 % Compute Measured and Ajdusted Incremental Water Yields for Gaged Basins
 % Compute exact yields in inches from monthly flows in cfs
 NHDAreaIWY  = getappdata(hAFinchGUI,'NHDAreaIWY');
+% make a daysinmonth vector corresponding to current WY
+DaysInMo = [31 30 31 31 eomday(WY,2) 31 30 31 30 31 31 30 337+eomday(WY,2)];
+
 %
 YTotIncWY = QTotIncWY(:,1:12)./repmat(NHDAreaIWY,1,12) .*...
     repmat((DaysInMo(1:12)*24*3600*12/5280.^2),length(NHDAreaIWY),1);
