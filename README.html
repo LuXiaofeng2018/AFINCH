@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>AFINCH (Analysis of Flow in Networks of Channels)</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<p>AFINCH</p>
+
+<h1>AFINCH (Analysis of Flow in Networks of Channels)</h1>
+
+<ul>
+<li>AFINCH is a computer application designed to generate time series of monthly flows at stream segments (flowlines) and corresponding water yields at catchments defined in the National Hydrography Dataset (NHDPlus, v. 2).<br/></li>
+<li>AFINCH provides a basis for integrating monthly flow data from streamgages, water-use data, monthly climatic data, land-cover characteristics defined in NHDPlus, and catchment attributes described in user-defined shapefiles to estimate natural monthly water yields from catchments.</li>
+<li>AFINCH provides an interactive process for the user to develop sets of multiple-regression equations for estimating monthly water yields.<br/>
+
+<ul>
+<li>Images of monthly water yields for active streamgages are generated in AFINCH and provide a basis for detecting anomalies in water yields, which may be associated with undocumented flow diversions or augmentations.<br/></li>
+</ul></li>
+<li>Water yields are multiplied by the drainage areas of the corresponding catchments to estimate monthly flows.<br/></li>
+<li>Flows from catchments are accumulated downstream through the streamflow network described by the stream segments.<br/>
+
+<ul>
+<li>For stream segments where streamgages are active, ratios of measured to accumulated flows are computed.<br/></li>
+<li>These ratios are applied to upstream water yields to proportionally constrain estimated flows to match measured flows.<br/></li>
+</ul></li>
+<li>A time series of monthly flows can be generated for stream segments that average about 1-mile long, or monthly water yields from catchments that average about 1 square mile.<br/>
+
+<ul>
+<li>Chloropleth maps of monthly water yield and flow can be generated and analyzed.<br/></li>
+<li>Estimated monthly flows can be displayed within AFINCH, examined for nonstationarity, and tested for monotonic trends.<br/></li>
+<li>Monthly flows also can be used to estimate flow-duration characteristics at stream segments within AFINCH.<br/></li>
+</ul></li>
+<li>AFINCH generates output files of monthly flows and water yields that are that can be used for specialized analyses.<br/></li>
+<li>AFINCH conserves through the NHDPlus network.<br/></li>
+<li>Matlab code used in the AFINCH application is included in the repository starting with version 3a. </li>
+</ul>
+
+<h2>Changes to AFINCH: version: AFinchGUI3b.m</h2>
+
+<h3>summary:</h3>
+
+<ul>
+<li>write out design matrix and regression coefficients to text files so that climate change 
+     scenarios can be run efficiently by replacing the climate variables in the design 
+     matrix with desired values and multiplying the design matrix and the vector
+     of regression coefficients.  This multiplication yields the unconstrained incremental 
+     square root catchment yields which are used to estimate the unconstrained incremental 
+     flows for each catchment.  One file with a design matrix and one file with regression 
+     coefficients are written for each month. Only period-of-analysis, ordinary least-squares, 
+     values are written. </li>
+</ul>
+
+<h3>changes:</h3>
+
+<ul>
+<li><p>AFinchGUI3b.m, added code from lines 593 - 627 to fill a design matrix
+     including a gridcode column and write it to files by month. The
+     files are DesMat_mon.csv, where mon is an abbreviated month name. Also write
+     the regression coefficient information to b_vec_mon.csv where mon 
+     is the abbreviated month name. Code was added to get the current water
+     year given the iy counter for the calculation (WY = WY1 + iy - 1) and
+     to use this information in the AFdaysInMonth script.  The vector
+     DaysInMo in version GUI3a was not updating with water year and 
+     was replaced.</p></li>
+<li><p>AFdaysInMonth.m, this script was added to get return the number of
+     days in each month considering leapyear given the computation month
+     and water year.  Used in AFinchGUI3b.m in the estimate of incremental
+     flow from a catchment. </p></li>
+<li><p>AFSetupData.m, the vector DaysInMo was moved later in the code and kept internal to this script.
+      It had been written to application memory to be used in AFinchGUI, but this vector was removed.<br/>
+      AFdaysInMonth.m replaces this vector.</p></li>
+</ul>
+
+</body>
+
+</html>
+
